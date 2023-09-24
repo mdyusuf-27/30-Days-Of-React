@@ -106,6 +106,7 @@ class Main extends React.Component {
             onClick={this.props.handleTime}
             style={buttonStyles}
           />
+          <Cars cars={this.props.cars} />
         </div>
       </main>
     )
@@ -125,6 +126,46 @@ class Footer extends React.Component {
           <p>Copyright {this.props.date.getFullYear()}</p>
         </div>
       </footer>
+    )
+  }
+}
+
+class Test extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { welcome, subtitle, title, author: { firstName, lastName }, date } = this.props.data
+    return (
+      <>
+        <h1>{firstName}</h1>
+        <p>{subtitle}</p>
+        <h3>{title}</h3>
+        <span>{welcome}</span>
+        <h1>{lastName}</h1>
+        <p>{date}</p>
+      </>
+    )
+  }
+}
+
+class Cars extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  greetPeople = () => {
+    alert(' 2020')
+  }
+
+  render() {
+    const { cars } = this.props;
+    return (
+      <>
+        <h2>{cars}</h2>
+        <button onClick={this.greetPeople}>Click Here</button>
+      </>
     )
   }
 }
@@ -169,6 +210,7 @@ class App extends React.Component {
       date: 'Oct 7, 2020',
     }
     const techs = ['HTML', 'CSS', 'JavaScript']
+    const cars = ['Mustang', 'Nismo GTR', 'Mercedes GLS', 'BMW M5'];
 
     // copying the author from data object to user variable using spread operator
     const user = { ...data.author, image: asabenehImage }
@@ -183,7 +225,9 @@ class App extends React.Component {
           greetPeople={this.greetPeople}
         />
 
-        <Footer date={new Date()} />
+        {/* <Footer date={new Date()} /> */}
+        <Test data={data} />
+        <Cars cars={cars} />
       </div>
     )
   }
