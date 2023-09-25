@@ -150,6 +150,32 @@ class Footer extends React.Component {
   }
 }
 
+class Test extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false
+    }
+  }
+  btnChange = () => {
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    })
+  }
+  render() {
+    let status = this.state.loggedIn ? "Hello There !" : "Please Login"
+    let text;
+
+    return (
+      <>
+        <h2>{status}</h2>
+        <br />
+        <button onClick={this.btnChange}>{text = this.state.loggedIn ? "logout" : "login"}</button>
+      </>
+    )
+  }
+}
+
 class App extends React.Component {
   state = {
     loggedIn: false,
@@ -216,8 +242,8 @@ class App extends React.Component {
           handleLogin={this.handleLogin}
           message={this.state.message}
         />
-
-        <Footer date={new Date()} />
+        <Test />
+        {/* <Footer date={new Date()} /> */}
       </div>
     )
   }
