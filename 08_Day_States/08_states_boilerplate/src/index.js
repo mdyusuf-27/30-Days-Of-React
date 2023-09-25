@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import asabenehImage from './images/asabeneh.jpg'
+import { countriesData } from './data/countries'
 
 // Fuction to show month date year
 
@@ -172,6 +173,43 @@ class Footer extends React.Component {
   }
 }
 
+class WorldTour extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      currentIndex: 0
+    }
+  }
+  changeCountry = () => {
+    const newIndex = Math.floor(Math.random() * countriesData.length);
+    this.setState({ currentIndex: newIndex });
+  }
+  render() {
+    const { currentIndex } = this.state;
+    const currentCountry = countriesData[currentIndex];
+
+    return (
+      <>
+        <div style={{ width: "50%", height: "500px", margin: "auto", boxShadow: '1px 2px 9px #b6b6b2' }}>
+          <div style={{ margin: "auto", textAlign: "center" }}>
+            <div key={currentIndex}>
+              <img src={currentCountry.flag} alt={"hello"} style={{ width: "200px" }} />
+              <h2>{currentCountry.name}</h2>
+              <h2>{currentCountry.capital}</h2>
+              <h2>{currentCountry.languages}</h2>
+              <h2>{currentCountry.population}</h2>
+              <h2>{currentCountry.currency}</h2>
+            </div>
+            <br />
+            <button onClick={this.changeCountry} style={{ textAlign: "center", padding: "15px", backgroundColor: '#61dbfb', border: "none", borderRadius: "10px" }}>Click to Change</button>
+          </div>
+
+        </div>
+      </>
+    )
+  }
+}
+
 class App extends React.Component {
   state = {
     count: 0,
@@ -215,7 +253,20 @@ class App extends React.Component {
   greetPeople = () => {
     alert('Welcome to 30 Days Of React Challenge, 2020')
   }
-  changeBackground = () => {}
+  changeBackground = () => {
+    const color = this.state.styles.backgroundColor;
+    const changeBg = color === "#fff" ? "#000" : "#fff"
+
+    const font = this.state.styles.color;
+    const changeFont = font === "#000" ? "#fff" : "#000"
+
+    this.setState({
+      styles: {
+        backgroundColor: changeBg,
+        color: changeFont
+      }
+    })
+  }
   render() {
     const data = {
       welcome: 'Welcome to 30 Days Of React',
@@ -233,7 +284,7 @@ class App extends React.Component {
     const user = { ...data.author, image: asabenehImage }
 
     return (
-      <div className='app'>
+      <div className='app' style={this.state.styles}>
         {this.state.backgroundColor}
         <Header data={data} />
         <Main
@@ -246,7 +297,9 @@ class App extends React.Component {
           minusOne={this.minusOne}
           count={this.state.count}
         />
-        <Footer date={new Date()} />
+        <WorldTour />
+        <br />
+        {/* <Footer date={new Date()} /> */}
       </div>
     )
   }
