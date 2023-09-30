@@ -30,6 +30,35 @@ const options = [
 const selectOptions = options.map(({ value, label }) => (
   <option value={value}> {label}</option>
 ))
+class Test extends Component {
+  state = {
+    test: '',
+    test1: '',
+    test2: ''
+  }
+  onChangeTest = (e) => {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+  render() {
+    const { test, test1, test2 } = this.state
+    return (
+      <>
+        Test
+        <br />
+        <label>Hello</label>
+        <input value={test} name="test" onChange={this.onChangeTest} />
+        <br />
+        <label>World</label>
+        <input value={test1} name="test1" onChange={this.onChangeTest} />
+        <br />
+        <label>Amazing</label>
+        <input value={test2} name="test2" onChange={this.onChangeTest} />
+        {/* <h1>{this.state.test}</h1> */}
+      </>
+    )
+  }
+}
 
 class App extends Component {
   // declaring state
@@ -54,6 +83,9 @@ class App extends Component {
       firstName: false,
       lastName: false,
     },
+    error: {
+      lastName: ''
+    }
   }
   handleChange = (e) => {
     /*
@@ -83,7 +115,12 @@ class App extends Component {
     const errors = {
       firstName: '',
     }
-
+    if (this.state.touched.firstName) {
+      if (!this.state.firstName) {
+        errors
+          .firstName = 'Please do not leave this field empty';
+      }
+    }
     if (
       (this.state.touched.firstName && this.state.firstName.length < 3) ||
       (this.state.touched.firstName && this.state.firstName.length > 12)
@@ -95,6 +132,7 @@ class App extends Component {
   handleSubmit = (e) => {
     // stops the default behavior of form element specifically refreshing of page
     e.preventDefault()
+
 
     const {
       firstName,
@@ -133,8 +171,8 @@ class App extends Component {
       skills: formattedSkills,
     }
     console.log(data)
-  }
 
+  }
   render() {
     // accessing the state value by destrutcturing the state
     // the noValidate attribute on the form is to stop the HTML5 built-in validation
@@ -157,6 +195,7 @@ class App extends Component {
               />{' '}
               <br />
               <small>{firstName}</small>
+
             </div>
             <div className='form-group'>
               <label htmlFor='lastName'>Last Name </label>
@@ -166,7 +205,11 @@ class App extends Component {
                 value={this.state.lastName}
                 onChange={this.handleChange}
                 placeholder='Last Name'
+                required
               />
+              {this.state.lastName && (
+                <div className="error">{this.state.lastName}</div>
+              )}
             </div>
             <div className='form-group'>
               <label htmlFor='email'>Email </label>
@@ -317,6 +360,7 @@ class App extends Component {
             <button>Submit</button>
           </div>
         </form>
+        <Test />
       </div>
     )
   }

@@ -6,6 +6,7 @@ class App extends Component {
   lastName = React.createRef()
   country = React.createRef()
   title = React.createRef()
+  test = React.createRef()
 
   handleSubmit = (e) => {
     // stops the default behavior of form element specifically refreshing of page
@@ -21,6 +22,7 @@ class App extends Component {
       lastName: this.lastName.current.value,
       title: this.title.current.value,
       country: this.country.current.value,
+      test: this.test.current.value
     }
     // the is the place we connect backend api to send the data to the database
     console.log(data)
@@ -66,6 +68,9 @@ class App extends Component {
               ref={this.title}
               onChange={this.handleChange}
             />
+          </div>
+          <div>
+            <input name="test" type="text" ref={this.test} />
           </div>
 
           <button className='btn btn-success'>Submit</button>

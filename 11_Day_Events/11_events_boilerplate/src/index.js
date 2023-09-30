@@ -7,6 +7,9 @@ class App extends Component {
     firstName: '',
     message: '',
     key: '',
+    message: '',
+    left: 0,
+    top: 0,
   }
   handleClick = (e) => {
     // e gives an event object
@@ -45,7 +48,35 @@ class App extends Component {
       message: 'Using 30 Days Of React for commercial purpose is not allowed',
     })
   }
+  handeleTest = (e) => {
+    this.setState({
+      message: e.target.value
+    })
+  }
+  handleMove = () => {
+    const moveLeft = this.state.left + 80
+    const moveTop = this.state.top + 80
+    const moveDown = this.state.down + 80
+
+    this.setState({
+      left: moveLeft,
+      top: moveTop,
+      down: moveDown
+    })
+  }
   render() {
+    const { left, top, down } = this.state;
+    const divStyle = {
+      position: 'absolute',
+      left: `${left}px`,
+      down: `${down}px`,
+      // top: `${top}px`,
+      width: '100px',
+      height: '100px',
+      backgroundColor: '#07ACCC',
+      color: "#fff"
+    };
+
     return (
       <div>
         <h1>Welcome to the World of Events</h1>
@@ -55,8 +86,6 @@ class App extends Component {
         <p onCopy={this.handleCopy}>
           Check copy right permission by copying this text
         </p>
-
-        <p>{this.state.message}</p>
         <label htmlFor=''> Test for onKeyPress Event: </label>
         <input type='text' onKeyPress={this.handleKeyPress} />
         <br />
@@ -76,7 +105,14 @@ class App extends Component {
 
           <div>
             <input type='submit' value='Submit' />
+            <br />
+            <label>Testing...</label>
+            <input onChange={this.handeleTest} />
+            <p>{this.state.message}</p>
           </div>
+
+          <br />
+          <div onMouseEnter={this.handleMove} style={divStyle}>Hello World</div>
         </form>
       </div>
     )
