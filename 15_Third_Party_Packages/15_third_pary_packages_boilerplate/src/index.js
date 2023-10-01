@@ -115,6 +115,7 @@ class App extends Component {
         <p>This challenge was started {moment('2020-10-01').fromNow()}</p>
         <p>The challenge will be over in {moment('2020-10-30').fromNow()}</p>
         <p>Today is {moment(new Date()).format('MMMM DD, YYYY HH:mm')}</p>
+        <p>Testing Moment date out here {moment(new Date()).format("hh:mm")}</p>
         <h1>React Component Life Cycle</h1>
         <h1>Calling API</h1>
         <TiSocialLinkedinCircular />
