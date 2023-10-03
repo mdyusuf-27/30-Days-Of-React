@@ -5,8 +5,9 @@ import {
   Route,
   Switch,
   NavLink,
-  Redirect,
-  Prompt,
+  Navigate,
+  Routes
+  // Prompt,
 } from 'react-router-dom'
 
 // Home component
@@ -16,6 +17,7 @@ const About = (props) => <h1>About Us</h1>
 // Contact component
 const Contact = (props) => <h1>Contact us</h1>
 // Challenge component
+
 
 const challenges = [
   {
@@ -171,7 +173,7 @@ const Challenges = (props) => {
           </li>
         ))}
       </ul>
-      <Switch>
+      <Routes>
         <Route
           exact
           path={'/challenges'}
@@ -181,7 +183,7 @@ const Challenges = (props) => {
           path={path}
           component={(props) => <Challenge challenge={challenge} />}
         />
-      </Switch>
+      </Routes>
     </div>
   )
 }
@@ -232,6 +234,11 @@ const Welcome = ({ handleLogin, isLoggedIn }) => {
     </div>
   )
 }
+
+class Test extends Component {
+
+}
+
 class App extends Component {
   state = {
     isLoggedIn: false,
@@ -248,18 +255,19 @@ class App extends Component {
         <div className='App'>
           <Navbar username={this.state.firstName} />
 
-          <Prompt
+          {/* <Prompt
             message={({ pathname }) => {
               return this.state.isLoggedIn &&
                 pathname.includes('/user/Asabeneh')
                 ? 'Are you sure you want to logout?'
                 : true
             }}
-          />
+          /> */}
 
-          <Switch>
-            <Route path='/about' component={About} />
-            <Route path='/contact' component={Contact} />
+          <Routes>
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/test' element={<Test />} />
             <Route
               path='/user/:username'
               component={(props) => (
@@ -286,13 +294,13 @@ class App extends Component {
                 return this.state.isLoggedIn ? (
                   <Challenges {...props} />
                 ) : (
-                  <Redirect to='/user/asabeneh' />
+                  <Navigate to='/user/asabeneh' />
                 )
               }}
             />
-            <Route exact path='/' component={Home} />
-            <Route component={NotFound} />
-          </Switch>
+            <Route exact path='/' element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
       </Router>
     )
